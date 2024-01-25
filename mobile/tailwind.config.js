@@ -3,7 +3,14 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        nunito: [
+          "NunitoSans_400Regular",
+          "NunitoSans_700Bold"
+        ]
+      }
+    },
   },
   future: {
     hoverOnlyWhenSupported: true,
