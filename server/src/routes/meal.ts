@@ -78,11 +78,9 @@ export const meal = new Elysia().group("/meal", (app) => {
         };
 
         //to use new Date, we need to parse the date to MM-DD-YYYY format
-        const [day, month, year] = date.split("-")
+        const [day, month, year] = date.split("-");
         date = `${month}-${day}-${year}`;
         newMeal.date = new Date(date).toLocaleDateString("en-US");
-
-        console.log(newMeal.date);
 
         tmpData.push(newMeal);
         return {
@@ -164,6 +162,31 @@ export const meals = new Elysia().group("/meals", (app) => {
   return app.get("/", () => {
     return {
       meals: tmpData,
+    };
+  });
+});
+
+export const resume = new Elysia().group("/resume", (app) => {
+  return app.get("/", () => {
+    //compute the porcentage of meals that are part of diet
+    const dietMeals = tmpData.filter((meal) => meal.partOfDiet);
+    const totalMeals = tmpData.length;
+    const porcentage = (dietMeals.length / totalMeals) * 100;
+
+    console.log(dietMeals.length, totalMeals, porcentage);
+
+    if (totalMeals === 0) {
+      return {
+        totalMeals: 0,
+        dietMeals: 0,
+        porcentage: 0,
+      };
+    }
+
+    return {
+      totalMeals,
+      dietMeals: dietMeals.length,
+      porcentage: porcentage.toFixed(2),
     };
   });
 });

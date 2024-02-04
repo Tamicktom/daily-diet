@@ -3,9 +3,14 @@ import { Elysia, t } from "elysia";
 import { cors } from "@elysiajs/cors";
 
 //* Routes imports
-import { meal, meals } from "./routes/meal";
+import { meal, meals, resume } from "./routes/meal";
 
-const app = new Elysia().use(cors()).use(meal).use(meals).listen(3000);
+const app = new Elysia()
+  .use(cors())
+  .use(meal)
+  .use(meals)
+  .use(resume)
+  .listen(3000);
 
 export type App = typeof app;
 

@@ -1,25 +1,16 @@
 //* Libraries imports
-import React from "react";
-import { Text, View, Image, TouchableOpacity, } from "react-native";
+import { View, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import { ArrowUpRight } from "phosphor-react-native";
 
 //* Local imports
-import { theme } from "@/utils/theme";
 import Logo from "@/assets/Logo.svg";
 
 //* Components imports
 import { MealList } from "./_components/SectionList";
+import { Resume } from "./_components/Resume";
 
 const githubPhoto = "https://github.com/tamicktom.png";
-
-type Meal = {
-  id: string;
-  name: string;
-  date: string;
-  partOfDiet: boolean;
-}
 
 export default function Page() {
   return (
@@ -38,17 +29,7 @@ export default function Page() {
 
       {/* Resume */}
       <View className="w-full">
-        <TouchableOpacity className="relative flex flex-col items-center justify-center gap-1 px-4 py-5 rounded-lg bg-base-green-light">
-          <Text className="text-3xl font-bold font-nunitoSans">
-            90,86%
-          </Text>
-          <Text className="text-sm font-bold font-nunitoSans">
-            das refeições dentro da dieta
-          </Text>
-          <View className="absolute flex items-center justify-center top-2 right-2">
-            <ArrowUpRight size={24} color={theme.extend.colors.base.green.dark} />
-          </View>
-        </TouchableOpacity>
+        <Resume />
       </View>
 
       <View className="flex-1 w-full">

@@ -25,7 +25,7 @@ export function MealList() {
   const meals = useMeals();
 
   useEffect(() => {
-    if (meals.data) {
+    if (meals.data?.meals) {
       const newParsedMeals: MealListData[] = [];
       //first, add the system meal
       newParsedMeals.push({
@@ -56,6 +56,8 @@ export function MealList() {
       });
 
       const unorderedMeals = meals.data.meals;
+
+      if (meals.data.meals.length === 0) return;
 
       //for each meal, fix they date
       for (const meal of unorderedMeals) {
