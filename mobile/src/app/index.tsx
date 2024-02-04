@@ -3,11 +3,10 @@ import React from "react";
 import { Text, View, Image, TouchableOpacity, } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
-import { ArrowUpRight, Plus } from "phosphor-react-native";
+import { ArrowUpRight } from "phosphor-react-native";
 
 //* Local imports
 import { theme } from "@/utils/theme";
-import { api } from "@/utils/api";
 import Logo from "@/assets/Logo.svg";
 
 //* Components imports
@@ -23,7 +22,6 @@ type Meal = {
 }
 
 export default function Page() {
-
   return (
     <SafeAreaView className="flex-1 p-6">
       <StatusBar style="dark" animated translucent />

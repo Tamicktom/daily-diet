@@ -1,95 +1,107 @@
 //* Libraries imports
-import React from "react";
-import { Text, View, TouchableOpacity, SectionList, type SectionListData } from "react-native";
+import { useState, useEffect } from "react";
+import { Text, View, TouchableOpacity, SectionList } from "react-native";
 import { Plus } from "phosphor-react-native";
-import { tv, type VariantProps } from "tailwind-variants";
+import { tv } from "tailwind-variants";
 
 //* Components imports
 import { Button } from "@/components/Button";
 
-type Meal = {
-  id: string;
-  name: string;
-  date: string;
-  partOfDiet: boolean;
+//* Hooks imports
+import { useMeals, type Meal } from "@/hooks/queries/useMeals";
+
+type MealListData = {
+  title: string;
+  data: Meal[];
 }
 
-const tmpData: SectionListData<Meal>[] = [
-  {
-    title: "system",
-    data: [
-      {
-        id: "0",
-        name: "",
-        date: "",
-        partOfDiet: false,
-      }
-    ]
-  },
-  {
-    title: "Hoje",
-    data: [{
-      id: "1",
-      name: "Café da manhã",
-      date: "08:00",
-      partOfDiet: true,
-    }, {
-      id: "2",
-      name: "Almoço",
-      date: "12:00",
-      partOfDiet: true,
-    }, {
-      id: "3",
-      name: "Jantar",
-      date: "19:00",
-      partOfDiet: false,
-    }]
-  },
-  {
-    title: "Ontem",
-    data: [{
-      id: "4",
-      name: "Café da manhã",
-      date: "08:00",
-      partOfDiet: true,
-    }, {
-      id: "5",
-      name: "Almoço",
-      date: "12:00",
-      partOfDiet: true,
-    }, {
-      id: "6",
-      name: "Jantar",
-      date: "19:00",
-      partOfDiet: false,
-    }]
-  },
-  {
-    title: "Anteontem",
-    data: [{
-      id: "7",
-      name: "Café da manhã",
-      date: "08:00",
-      partOfDiet: true,
-    }, {
-      id: "8",
-      name: "Almoço",
-      date: "12:00",
-      partOfDiet: true,
-    }, {
-      id: "9",
-      name: "Jantar",
-      date: "19:00",
-      partOfDiet: false,
-    }]
-  }
-];
+//dates in format "dd/MM/yyyy"
+const today = new Date().toLocaleDateString("pt-BR");
+const yesterday = new Date(Date.now() - 864e5).toLocaleDateString("pt-BR");
+const beforeYesterday = new Date(Date.now() - 1728e5).toLocaleDateString("pt-BR");
 
 export function MealList() {
+  const [parsedMeals, setParsedMeals] = useState<MealListData[]>([]);
+  const meals = useMeals();
+
+  useEffect(() => {
+    if (meals.data) {
+      const newParsedMeals: MealListData[] = [];
+      //first, add the system meal
+      newParsedMeals.push({
+        title: "system",
+        data: [
+          {
+            id: "0",
+            name: "",
+            date: "",
+            partOfDiet: false,
+          }
+        ]
+      });
+
+      newParsedMeals.push({
+        title: "Hoje",
+        data: [],
+      });
+
+      newParsedMeals.push({
+        title: "Ontem",
+        data: [],
+      });
+
+      newParsedMeals.push({
+        title: "Anteontem",
+        data: [],
+      });
+
+      const unorderedMeals = meals.data.meals;
+
+      //for each meal, fix they date
+      for (const meal of unorderedMeals) {
+        //fix the date format adding a 0 to the day and month if they are less than 10
+        let tmpDate = meal.date.split("/").map((d, i) => i < 2 && d.length < 2 ? `0${d}` : d).join("/");
+        //fix format, from mm/dd/yyyy to dd/mm/yyyy
+        meal.date = `${tmpDate.split("/")[1]}/${tmpDate.split("/")[0]}/${tmpDate.split("/")[2]}`
+      }
+
+      function addMealToSection(meal: Meal, date: string) {
+        if (meal.date === today) {
+          newParsedMeals.find((section) => section.title === "Hoje")?.data?.push(meal);
+        } else if (meal.date === yesterday) {
+          newParsedMeals.find((section) => section.title === "Ontem")?.data?.push(meal);
+        } else if (meal.date === beforeYesterday) {
+          newParsedMeals.find((section) => section.title === "Anteontem")?.data?.push(meal);
+        } else {
+          //search for the section with the date of the meal
+          let section = newParsedMeals.find((section) => section.title === meal.date);
+          if (!section) {
+            //if not found, create a new section
+            section = {
+              title: meal.date,
+              data: [
+                meal,
+              ],
+            };
+            newParsedMeals.push(section);
+          } else {
+            section.data.push(meal);
+          }
+        }
+      }
+
+      for (const meal of unorderedMeals) {
+        addMealToSection(meal, meal.date);
+      }
+
+      setParsedMeals(newParsedMeals);
+    }
+  }, [meals.data]);
+
   return (
     <SectionList
       className="flex-1"
-      sections={tmpData}
+      sections={parsedMeals}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (<MealCard meal={item} />)}
       renderSectionHeader={({ section }) => (<MealTitle title={section.title} />)}
