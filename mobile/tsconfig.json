@@ -3,12 +3,8 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@server/*": [
-        "../server/src/*"
-      ]
+      "@/*": ["./src/*"],
+      "@server/*": ["../server/src/*"]
     }
   },
   "extends": "expo/tsconfig.base",

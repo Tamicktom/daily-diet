@@ -37,6 +37,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
+    "react-native-svg-transformer": "^1.3.0",
     "@babel/core": "^7.20.0",
     "@types/react": "~18.2.45",
     "elysia": "^0.8.10",
