@@ -1,8 +1,7 @@
 //* Libraries imports
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import { tv, type VariantProps } from "tailwind-variants";
-import tailwindColors from "tailwindcss/colors";
 
 const selectBase = tv({
   slots: {
@@ -18,7 +17,7 @@ const selectBase = tv({
       "gap-2",
     ],
     ball: ["w-4", "h-4", "rounded-full"],
-    label: ["text-sm", "font-nunito-bold"],
+    label: ["text-sm", "font-nunito", "font-bold"],
   },
 });
 
@@ -48,7 +47,7 @@ const select = tv({
 
 type SelectVariants = VariantProps<typeof select>;
 
-interface Props {
+type Props = {
   label: string;
   //all variants, except selected
   variant: Omit<SelectVariants, "selected">;

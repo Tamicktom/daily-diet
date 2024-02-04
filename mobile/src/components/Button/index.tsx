@@ -13,11 +13,11 @@ const button = tv({
   variants: {
     type: {
       default: {
-        label: "text-white font-nunito",
+        label: "text-white font-nunitoSans",
         base: "bg-base-gray-2 border-transparent",
       },
       outline: {
-        label: "text-black font-nunito",
+        label: "text-black font-nunitoSans",
         base: "border-black",
       },
     }
@@ -26,7 +26,7 @@ const button = tv({
     type: "default",
   },
   slots: {
-    label: "text-base font-nunito font-bold",
+    label: "text-base font-nunitoSans font-bold",
   }
 });
 

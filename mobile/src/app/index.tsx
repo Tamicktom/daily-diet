@@ -8,11 +8,11 @@ import { useAtom } from "jotai";
 
 //* Local imports
 import { api } from "@/utils/api";
-import { mealsAtom } from "@/atoms/mealsAtom";
 
 //* Components imports
 import { Button } from "@/components/Button";
 import { Select } from "@/components/Select";
+import { Input } from "@/components/Input";
 
 export default function Page() {
 
@@ -34,7 +34,7 @@ export default function Page() {
         label="Positive"
         variant={{
           type: "positive",
-          
+
         }}
       />
       <Select
@@ -43,6 +43,9 @@ export default function Page() {
           type: "negative",
         }}
       />
+
+      <Input label="Banana"/>
+      <Input />
     </View>
   );
 }
