@@ -186,7 +186,7 @@ export const resume = new Elysia().group("/resume", (app) => {
     return {
       totalMeals,
       dietMeals: dietMeals.length,
-      porcentage: porcentage.toFixed(2),
+      porcentage: porcentage,
     };
   });
 });
