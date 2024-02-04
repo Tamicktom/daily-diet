@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { TouchableOpacity, Text, TouchableOpacityProps } from "react-native";
 import { tv, type VariantProps } from "tailwind-variants";
-import type { Icon } from "phosphor-react-native";
+import type { Icon, IconProps } from "phosphor-react-native";
 import tailwindColors from "tailwindcss/colors";
 
 //* Theme import
@@ -35,6 +35,7 @@ type ButtonVariants = VariantProps<typeof button>;
 interface Props extends TouchableOpacityProps, ButtonVariants {
   label: string;
   icon?: Icon;
+  iconWeight?: IconProps["weight"];
 }
 
 export function Button({ label, icon: Icon, type, ...rest }: Props) {
@@ -74,7 +75,14 @@ export function Button({ label, icon: Icon, type, ...rest }: Props) {
       onPressOut={() => handlePress(false)}
       {...rest}
     >
-      {Icon && <Icon size={18} color={colors.color} weight="fill" />}
+      {
+        Icon &&
+        <Icon
+          size={18}
+          color={colors.color}
+          weight={rest.iconWeight || "fill"}
+        />
+      }
       <Text className={classNames.label()}>{label}</Text>
     </TouchableOpacity>
   );
