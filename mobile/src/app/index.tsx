@@ -134,7 +134,7 @@ export default function Page() {
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => {
             if (item.id === "0") return (
-              <View className="w-full pb-8">
+              <View className="w-full gap-2 pb-8">
                 <Text className="text-base font-nunitoSans">
                   Refeições
                 </Text>
@@ -147,10 +147,10 @@ export default function Page() {
             );
 
             return (
-              <TouchableOpacity className="flex flex-row items-center justify-center w-full gap-1 py-4 pl-3 pr-4 border rounded-md border-base-gray-5">
-                <Text className="text-xs font-bold font-nunitoSans text-base-gray-1">20:00</Text>
+              <TouchableOpacity className="flex flex-row items-center justify-center w-full gap-3 py-4 pl-3 pr-4 border rounded-md border-base-gray-5">
+                <Text className="text-xs font-bold font-nunitoSans text-base-gray-1">{item.date}</Text>
                 <View className="w-0.5 h-full bg-base-gray-4" />
-                <Text className="flex-1 text-base text-base-gray-2 font-nunitoSans">X-tudo</Text>
+                <Text className="flex-1 text-base text-base-gray-2 font-nunitoSans">{item.name}</Text>
                 <View
                   className="w-4 h-4 rounded-full bg-base-green-mid"
                 />
