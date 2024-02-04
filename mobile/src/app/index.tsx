@@ -1,7 +1,6 @@
 //* Libraries imports
-import { Link } from "expo-router";
 import React from "react";
-import { Text, View, Image, TouchableOpacity, SectionList, type SectionListData } from "react-native";
+import { Text, View, Image, TouchableOpacity, } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { ArrowUpRight, Plus } from "phosphor-react-native";
@@ -12,9 +11,7 @@ import { api } from "@/utils/api";
 import Logo from "@/assets/Logo.svg";
 
 //* Components imports
-import { Button } from "@/components/Button";
-import { Select } from "@/components/Select";
-import { Input } from "@/components/Input";
+import { MealList } from "./_components/SectionList";
 
 const githubPhoto = "https://github.com/tamicktom.png";
 
@@ -24,77 +21,6 @@ type Meal = {
   date: string;
   partOfDiet: boolean;
 }
-
-const tmpData: SectionListData<Meal>[] = [
-  {
-    title: "system",
-    data: [
-      {
-        id: "0",
-        name: "",
-        date: "",
-        partOfDiet: false,
-      }
-    ]
-  },
-  {
-    title: "Hoje",
-    data: [{
-      id: "1",
-      name: "Café da manhã",
-      date: "08:00",
-      partOfDiet: true,
-    }, {
-      id: "2",
-      name: "Almoço",
-      date: "12:00",
-      partOfDiet: true,
-    }, {
-      id: "3",
-      name: "Jantar",
-      date: "19:00",
-      partOfDiet: false,
-    }]
-  },
-  {
-    title: "Ontem",
-    data: [{
-      id: "4",
-      name: "Café da manhã",
-      date: "08:00",
-      partOfDiet: true,
-    }, {
-      id: "5",
-      name: "Almoço",
-      date: "12:00",
-      partOfDiet: true,
-    }, {
-      id: "6",
-      name: "Jantar",
-      date: "19:00",
-      partOfDiet: false,
-    }]
-  },
-  {
-    title: "Anteontem",
-    data: [{
-      id: "7",
-      name: "Café da manhã",
-      date: "08:00",
-      partOfDiet: true,
-    }, {
-      id: "8",
-      name: "Almoço",
-      date: "12:00",
-      partOfDiet: true,
-    }, {
-      id: "9",
-      name: "Jantar",
-      date: "19:00",
-      partOfDiet: false,
-    }]
-  }
-];
 
 export default function Page() {
 
@@ -128,52 +54,7 @@ export default function Page() {
       </View>
 
       <View className="flex-1 w-full">
-        <SectionList
-          className="flex-1"
-          sections={tmpData}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => {
-            if (item.id === "0") return (
-              <View className="w-full gap-2 pb-8">
-                <Text className="text-base font-nunitoSans">
-                  Refeições
-                </Text>
-                <Button
-                  label="Nova refeição"
-                  icon={Plus}
-                  iconWeight="regular"
-                />
-              </View>
-            );
-
-            return (
-              <TouchableOpacity className="flex flex-row items-center justify-center w-full gap-3 py-4 pl-3 pr-4 border rounded-md border-base-gray-5">
-                <Text className="text-xs font-bold font-nunitoSans text-base-gray-1">{item.date}</Text>
-                <View className="w-0.5 h-full bg-base-gray-4" />
-                <Text className="flex-1 text-base text-base-gray-2 font-nunitoSans">{item.name}</Text>
-                <View
-                  className="w-4 h-4 rounded-full bg-base-green-mid"
-                />
-              </TouchableOpacity>
-            );
-          }}
-          renderSectionHeader={({ section }) => {
-            if (section.title === "system") return (<></>);
-
-            return (
-              <View className="pt-8 pb-2">
-                <Text className="text-lg font-bold text-base-gray-1 font-nunitoSans">
-                  {section.title}
-                </Text>
-              </View>
-            );
-          }}
-          ItemSeparatorComponent={() => (
-            <View className="h-2" />
-          )}
-          contentContainerStyle={{ paddingBottom: 100, paddingTop: 40 }}
-          showsVerticalScrollIndicator={false}
-        />
+        <MealList />
       </View>
     </SafeAreaView>
   );
