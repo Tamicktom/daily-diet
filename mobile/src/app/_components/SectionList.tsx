@@ -40,6 +40,10 @@ export function MealList() {
         ]
       });
 
+      const unorderedMeals = meals.data.meals;
+
+      if (meals.data.meals.length === 0) return setParsedMeals(newParsedMeals);
+
       newParsedMeals.push({
         title: "Hoje",
         data: [],
@@ -54,10 +58,6 @@ export function MealList() {
         title: "Anteontem",
         data: [],
       });
-
-      const unorderedMeals = meals.data.meals;
-
-      if (meals.data.meals.length === 0) return;
 
       //for each meal, fix they date
       for (const meal of unorderedMeals) {
