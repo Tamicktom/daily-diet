@@ -16,6 +16,9 @@
       ]
     ],
     "name": "daily-diet",
-    "slug": "daily-diet"
+    "slug": "daily-diet",
+    "experiments": {
+      "typedRoutes": true
+    }
   }
 }

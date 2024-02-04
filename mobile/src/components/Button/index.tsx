@@ -1,6 +1,6 @@
 //* Libraires imports
 import { useState } from "react";
-import { View, TouchableOpacity, Text, TouchableOpacityProps } from "react-native";
+import { TouchableOpacity, Text, TouchableOpacityProps } from "react-native";
 import { tv, type VariantProps } from "tailwind-variants";
 import type { Icon } from "phosphor-react-native";
 import tailwindColors from "tailwindcss/colors";
@@ -64,20 +64,18 @@ export function Button({ label, icon: Icon, type, ...rest }: Props) {
   }
 
   return (
-    <View>
-      <TouchableOpacity
-        activeOpacity={1}
-        className={classNames.base()}
-        style={{
-          backgroundColor: colors.backgroundColor,
-        }}
-        onPressIn={() => handlePress(true)}
-        onPressOut={() => handlePress(false)}
-        {...rest}
-      >
-        {Icon && <Icon size={18} color={colors.color} weight="fill" />}
-        <Text className={classNames.label()}>{label}</Text>
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      activeOpacity={1}
+      className={classNames.base()}
+      style={{
+        backgroundColor: colors.backgroundColor,
+      }}
+      onPressIn={() => handlePress(true)}
+      onPressOut={() => handlePress(false)}
+      {...rest}
+    >
+      {Icon && <Icon size={18} color={colors.color} weight="fill" />}
+      <Text className={classNames.label()}>{label}</Text>
+    </TouchableOpacity>
   );
 }
