@@ -29,7 +29,10 @@ const themeSchema = z.object({
       })
     }),
     fontFamily: z.object({
-      nunito: z.array(z.string())
+      nunito: z.object({
+        regular: z.string(),
+        bold: z.string(),
+      })
     })
   }),
 });
@@ -60,10 +63,10 @@ export const theme = themeSchema.parse({
       }
     },
     fontFamily: {
-      nunito: [
-        "NunitoSans_400Regular",
-        "NunitoSans_700Bold"
-      ]
+      nunito: {
+        regular: "NunitoSans_400Regular",
+        bold: "NunitoSans_700Bold",
+      },
     }
   },
 });

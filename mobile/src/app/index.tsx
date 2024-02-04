@@ -30,7 +30,19 @@ export default function Page() {
         type="default"
       />
 
-      <Select />
+      <Select
+        label="Positive"
+        variant={{
+          type: "positive",
+          
+        }}
+      />
+      <Select
+        label="Negative"
+        variant={{
+          type: "negative",
+        }}
+      />
     </View>
   );
 }
