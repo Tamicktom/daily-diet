@@ -5,7 +5,7 @@ import { Plus } from "phosphor-react-native";
 import { tv } from "tailwind-variants";
 
 //* Components imports
-import { Button } from "@/components/Button";
+import { Button } from "@/components/ui/Button";
 
 //* Hooks imports
 import { useMeals, type Meal } from "@/hooks/queries/useMeals";
@@ -102,7 +102,6 @@ export function MealList() {
 
   return (
     <SectionList
-      className="flex-1"
       sections={parsedMeals}
       keyExtractor={(item) => item.id}
       renderItem={({ item }) => (<MealCard meal={item} />)}
@@ -110,7 +109,8 @@ export function MealList() {
       ItemSeparatorComponent={() => (
         <View className="h-2" />
       )}
-      contentContainerStyle={{ paddingBottom: 100, paddingTop: 40 }}
+      ListEmptyComponent={() => <NewMeal />}
+      contentContainerStyle={{ paddingBottom: 100, paddingTop: 40, paddingHorizontal: 24 }}
       showsVerticalScrollIndicator={false}
     />
   );
