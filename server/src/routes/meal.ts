@@ -17,10 +17,9 @@ function verifyDate(date: string) {
   //because the date is in DD-MM-YYYY format
   //we need to parse it to YYYY-MM-DD before creating a new Date object
   const [day, month, year] = date.split("-");
-  date = `${year}-${month}-${day}`;
-  const parsedDate = new Date(date);
+  const parsedDate = new Date(`${year}-${month}-${day}`);
 
-  if (isNaN(parsedDate.getTime())) {
+  if (Number.isNaN(parsedDate.getTime())) {
     return {
       message: "Invalid date",
     };
@@ -29,8 +28,7 @@ function verifyDate(date: string) {
   if (parsedDate.getTime() > new Date().getTime()) {
     return {
       message:
-        "Date cannot be in the future. The server time is: " +
-        new Date().toLocaleDateString("en-US"),
+        `Date cannot be in the future. The server time is: ${new Date().toLocaleDateString("en-US")}`,
     };
   }
 

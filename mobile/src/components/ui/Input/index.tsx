@@ -42,12 +42,12 @@ export function Input({ variant, label, onFocus, onBlur, ...rest }: Props) {
   const [active, setActive] = useState(false);
 
   function handleOnFocus(event: NativeSyntheticEvent<TextInputFocusEventData>) {
-    onFocus && onFocus(event);
+    onFocus?.(event);
     setActive(() => true);
   }
 
   function handleOnBlur(event: NativeSyntheticEvent<TextInputFocusEventData>) {
-    onBlur && onBlur(event);
+    onBlur?.(event);
     setActive(() => false);
   }
 

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Text, View, TouchableOpacity, SectionList } from "react-native";
 import { Plus } from "phosphor-react-native";
 import { tv } from "tailwind-variants";
+import { Link } from "expo-router";
 
 //* Components imports
 import { Button } from "@/components/ui/Button";
@@ -62,7 +63,7 @@ export function MealList() {
       //for each meal, fix they date
       for (const meal of unorderedMeals) {
         //fix the date format adding a 0 to the day and month if they are less than 10
-        let tmpDate = meal.date.split("/").map((d, i) => i < 2 && d.length < 2 ? `0${d}` : d).join("/");
+        const tmpDate = meal.date.split("/").map((d, i) => i < 2 && d.length < 2 ? `0${d}` : d).join("/");
         //fix format, from mm/dd/yyyy to dd/mm/yyyy
         meal.date = `${tmpDate.split("/")[1]}/${tmpDate.split("/")[0]}/${tmpDate.split("/")[2]}`
       }
@@ -165,11 +166,13 @@ function NewMeal() {
       <Text className="text-base font-nunitoSans">
         Refeições
       </Text>
-      <Button
-        label="Nova refeição"
-        icon={Plus}
-        iconWeight="regular"
-      />
+      <Link href="/new-meal/" asChild>
+        <Button
+          label="Nova refeição"
+          icon={Plus}
+          iconWeight="regular"
+        />
+      </Link>
     </View>
   );
 }
