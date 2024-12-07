@@ -171,7 +171,11 @@ export const resume = new Elysia().group("/resume", (app) => {
     const totalMeals = tmpData.length;
     const porcentage = (dietMeals.length / totalMeals) * 100;
 
-    console.log(dietMeals.length, totalMeals, porcentage);
+    console.log({
+      dietMeals: dietMeals.length,
+      totalMeals,
+      porcentage,
+    });
 
     if (totalMeals === 0) {
       return {

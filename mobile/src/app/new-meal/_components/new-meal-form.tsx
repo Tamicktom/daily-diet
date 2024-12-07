@@ -9,32 +9,42 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 
 //* Hooks imports
-
-
+import { useNewMeal } from "@/hooks/mutations/meals/use-new-meal";
 
 
 const newMealSchema = z.object({
   name: z.string().min(1),
   description: z.string().min(1),
   date: z.string().min(1),
-  time: z.string().min(1),
+  hour: z.string().min(1),
   partOfDiet: z.boolean(),
 });
 
 export function NewMealForm() {
-  const form = useForm({
+  const newMeal = useNewMeal();
+
+  const form = useForm<z.infer<typeof newMealSchema>>({
     resolver: zodResolver(newMealSchema),
     defaultValues: {
       name: "",
       description: "",
       date: "",
-      time: "",
+      hour: "",
       partOfDiet: false,
     },
   });
 
   const handleSubmit = form.handleSubmit((data) => {
     console.log(data);
+
+    newMeal.mutate(data, {
+      onSuccess: () => {
+        console.log("success");
+      },
+      onError: () => {
+        console.log("error");
+      },
+    });
   });
 
   return (
@@ -52,6 +62,7 @@ export function NewMealForm() {
                 onChangeText={onChange}
                 value={value}
               />
+              <Text>{form.formState.errors.name?.message}</Text>
             </View>
           );
         }}
@@ -71,6 +82,7 @@ export function NewMealForm() {
                 onChangeText={onChange}
                 value={value}
               />
+              <Text>{form.formState.errors.description?.message}</Text>
             </View>
           );
         }}
@@ -91,6 +103,7 @@ export function NewMealForm() {
                   value={value}
                   keyboardType="numeric"
                 />
+                <Text>{form.formState.errors.date?.message}</Text>
               </View>
             );
           }}
@@ -98,7 +111,7 @@ export function NewMealForm() {
 
         <Controller
           control={form.control}
-          name="time"
+          name="hour"
           render={({ field: { onChange, onBlur, value } }) => {
             return (
               <View className="flex flex-col flex-1 gap-1">
@@ -110,6 +123,7 @@ export function NewMealForm() {
                   value={value}
                   keyboardType="numeric"
                 />
+                <Text>{form.formState.errors.hour?.message}</Text>
               </View>
             );
           }}
@@ -118,10 +132,18 @@ export function NewMealForm() {
 
       <Text>Está dentro da dieta?</Text>
 
+      <Text>{form.formState.errors.partOfDiet?.message}</Text>
+
       <Button
         label="Cadastrar refeição"
         onPress={handleSubmit}
       />
+
+      <Text>
+        {
+          JSON.stringify(form.formState.errors, null, 2)
+        }
+      </Text>
     </View>
   );
 }
