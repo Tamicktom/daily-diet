@@ -2,6 +2,7 @@
 import { View, Text } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "expo-router";
 import z from "zod";
 
 //* Components imports
@@ -21,6 +22,7 @@ const newMealSchema = z.object({
 });
 
 export function NewMealForm() {
+  const router = useRouter();
   const newMeal = useNewMeal();
 
   const form = useForm<z.infer<typeof newMealSchema>>({
@@ -40,6 +42,7 @@ export function NewMealForm() {
     newMeal.mutate(data, {
       onSuccess: () => {
         console.log("success");
+        router.replace("/");
       },
       onError: () => {
         console.log("error");
